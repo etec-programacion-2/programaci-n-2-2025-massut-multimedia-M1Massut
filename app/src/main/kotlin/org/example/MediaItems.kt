@@ -8,32 +8,32 @@ package org.example.Clases
 	)
 	class Audio(
 		id: String,
-		title: String,
+		titulo: String,
 		tamaño: Long,
 		filepath: String,
 		val duracion: Int // en segundos
-	) : ArchivoMultimedia(id, title, tamaño, filepath) {
-		override fun toString(): String = "Audio(id='$id', title='$title', tamaño=$tamaño, filepath='$filepath', duracion=$duracion)"
+	) : ArchivoMultimedia(id, titulo, tamaño, filepath) {
+		override fun toString(): String = "Audio(id='$id', titulo='$titulo', tamaño=$tamaño, filepath='$filepath', duracion=$duracion)"
 	}
 
 
 	class Video(
 		id: String,
-		title: String,
+		titulo: String,
 		tamaño: Long,
 		filepath: String,
 		val duracion: Int, // en segundos
 		val resolucion: String
-	) : ArchivoMultimedia(id,title, tamaño, filepath) {
+	) : ArchivoMultimedia(id,titulo, tamaño, filepath) {
 		override fun toString(): String = "Video(id='$id', title='$title', tamaño=$tamaño, filepath='$filepath', duracion=$duracion, resolucion='$resolucion')"
 	}
 
 	class Imagen(
 		id: String,
-		title: String,
+		titulo: String,
 		tamaño: Long,
 		filepath: String,
 		val resolucion: String
-	) : ArchivoMultimedia(id, title, tamaño, filepath) {
-		override fun toString(): String = "Imagen(id='$id', title='$title', tamaño=$tamaño, filepath='$filepath', resolucion='$resolucion')"
+	) : ArchivoMultimedia(id, titulo, tamaño, filepath) {
+		override fun toString(): String = "Imagen(id='$id', titulo='$titulo', tamaño=$tamaño, filepath='$filepath', resolucion='$resolucion')"
 	}
