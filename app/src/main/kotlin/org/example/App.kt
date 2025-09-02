@@ -3,6 +3,8 @@
  */
 package org.example
 
+import org.example.Clases.Audio
+
 class App {
     val greeting: String
         get() {
@@ -12,4 +14,6 @@ class App {
 
 fun main() {
     println(App().greeting)
+    val audio = Audio(id="1", titulo="Cancion1", tamaño=3000, filepath="/music/cancion1.mp3", duracion=240)
+    println(audio)
 }
