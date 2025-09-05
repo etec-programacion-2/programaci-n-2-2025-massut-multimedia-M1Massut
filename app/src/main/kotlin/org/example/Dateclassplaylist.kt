@@ -5,5 +5,5 @@ data class Media(
     val titulo: String,
     val tamaño: Int,
     val creador: User,
-    val MediaList: MutableList<Media> = mutableListOf()
+    val mediaList: MutableList<Media> = mutableListOf()
 )
