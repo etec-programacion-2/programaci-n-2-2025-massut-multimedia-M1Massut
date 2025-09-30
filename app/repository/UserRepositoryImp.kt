@@ -8,11 +8,11 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class UserRepositoryImpl : UserRepository {
 
-    override fun create(user: User) {
+    override fun create(user: Receta) {
         transaction {
             UsersTable.insert {
-                it[name] = user.name
-                it[email] = user.email
+                it[name] = receta.name
+                it[email] = receta.email
             }
         }
     }
@@ -35,8 +35,8 @@ class UserRepositoryImpl : UserRepository {
     override fun update(id: Int, user: User) {
         transaction {
             UsersTable.update({ UsersTable.id eq id }) {
-                it[name] = user.name
-                it[email] = user.email
+                it[name] = receta.name
+                it[email] = receta.email
             }
         }
     }

@@ -19,22 +19,23 @@ repositories {
 }
 
 dependencies {
- // SQLite JDBC Driver - ¡IMPORTANTE!
+    // SQLite JDBC Driver - ¡IMPORTANTE para la base de datos!
     implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+    
+    // Guava library
+    implementation("com.google.guava:guava:33.3.1-jre")
     
     // Testing
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation(libs.junit.jupiter.engine)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
-  implementation(libs.guava){
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
-}
 }
 
 application {
