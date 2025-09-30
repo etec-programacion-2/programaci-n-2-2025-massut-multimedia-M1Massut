@@ -19,25 +19,22 @@ repositories {
 }
 
 dependencies {
-    // Use the Kotlin JUnit 5 integration.
+ // SQLite JDBC Driver - ¡IMPORTANTE!
+    implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+    
+    // Testing
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-
-    // Use the JUnit 5 integration.
     testImplementation(libs.junit.jupiter.engine)
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    // This dependency is used by the application.
-    implementation(libs.guava)
-    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
-    implementation("org.slf4j:slf4j-simple:2.0.7")
 }
+  implementation(libs.guava){
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+}
 }
 
 application {
