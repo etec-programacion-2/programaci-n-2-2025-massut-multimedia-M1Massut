@@ -35,14 +35,17 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
         val sql = "INSERT INTO recetas (nombre, descripcion) VALUES (?, ?)"
         
         connect().use { conn ->
-            conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS).use { pstmt ->
+            conn.prepareStatement(sql).use { pstmt ->
                 pstmt.setString(1, nombre)
                 pstmt.setString(2, descripcion)
                 pstmt.executeUpdate()
-                
-                val generatedKeys = pstmt.generatedKeys
-                if (generatedKeys.next()) {
-                    val id = generatedKeys.getInt(1)
+            }
+            
+            // Obtener el último ID insertado
+            conn.createStatement().use { stmt ->
+                val rs = stmt.executeQuery("SELECT last_insert_rowid()")
+                if (rs.next()) {
+                    val id = rs.getInt(1)
                     println("✓ Receta '$nombre' guardada con ID: $id")
                     return id
                 }
@@ -64,7 +67,7 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
                         Receta(
                             id = rs.getInt("id"),
                             nombre = rs.getString("nombre"),
-                            descripcion = rs.getString("descripcion"),
+                            descripcion = rs.getString("descripcion") ?: "",
                             fechaCreacion = rs.getString("fecha_creacion")
                         )
                     )
@@ -87,7 +90,7 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
                     return Receta(
                         id = rs.getInt("id"),
                         nombre = rs.getString("nombre"),
-                        descripcion = rs.getString("descripcion"),
+                        descripcion = rs.getString("descripcion") ?: "",
                         fechaCreacion = rs.getString("fecha_creacion")
                     )
                 }

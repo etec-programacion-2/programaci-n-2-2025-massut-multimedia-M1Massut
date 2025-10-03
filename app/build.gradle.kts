@@ -21,6 +21,8 @@ repositories {
 dependencies {
     // SQLite JDBC Driver - ¡IMPORTANTE para la base de datos!
     implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+    implementation("org.slf4j:slf4j-simple:2.0.9")
+    
     
     // Guava library
     implementation("com.google.guava:guava:33.3.1-jre")
@@ -46,4 +48,8 @@ application {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
 }
