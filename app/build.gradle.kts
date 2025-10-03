@@ -8,6 +8,7 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     alias(libs.plugins.kotlin.jvm)
+    id("org.openjfx.javafxplugin") version "0.0.14"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -17,7 +18,10 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
-
+javafx {
+    version = "22"
+    modules = listOf("javafx.controls", "javafx.fxml")
+}
 dependencies {
     // SQLite JDBC Driver - ¡IMPORTANTE para la base de datos!
     implementation("org.xerial:sqlite-jdbc:3.44.1.0")
