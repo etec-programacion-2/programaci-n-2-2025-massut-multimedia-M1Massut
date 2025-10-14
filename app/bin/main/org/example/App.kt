@@ -13,11 +13,15 @@ fun main() {
     db.createTable()
     
     // Ejemplo de uso: Insertar recetas
-    println("\n--- Insertando recetas ---")
+    /* 
+    //println("\n--- Insertando recetas ---")
     val id1 = db.insertarReceta("Pizza Margherita", "Pizza clásica italiana con tomate, mozzarella y albahaca")
     val id2 = db.insertarReceta("Empanadas Argentinas", "Empanadas rellenas de carne, cebolla y especias")
     val id3 = db.insertarReceta("Medialunas", "Medialunas dulces argentinas para el desayuno")
-    
+    */
+    val id1 = 1
+    val id2 = 2 
+    val id3 = 3
     // Listar todas las recetas
     println("\n--- Todas las recetas ---")
     val recetas = db.obtenerTodasLasRecetas()
