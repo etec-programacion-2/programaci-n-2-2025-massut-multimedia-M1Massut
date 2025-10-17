@@ -149,3 +149,4 @@ data class Receta(
         return "Receta(id=$id, nombre='$nombre', descripcion='$descripcion', fecha='$fechaCreacion')"
     }
 }
+
