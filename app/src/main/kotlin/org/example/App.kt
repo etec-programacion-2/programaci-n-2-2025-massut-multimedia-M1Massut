@@ -11,7 +11,7 @@ fun main() {
     // Inicializar base de datos
     val db = DatabaseHelper("data.db")
     db.createTable()
-    
+
     // Ejemplo de uso: Insertar recetas
     /* 
     //println("\n--- Insertando recetas ---")
