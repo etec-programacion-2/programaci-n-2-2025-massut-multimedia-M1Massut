@@ -38,7 +38,7 @@ class RecipeApp : Application() {
         val btnActualizar = createStyledButton("✏️ Actualizar Receta")
         val btnEliminar = createStyledButton("🗑️ Eliminar Receta")
         val btnSalir = createStyledButton("❌ Salir").apply {
-            style = "-fx-background-color: #e74c3c; -fx-text-fill: white; " +
+            style = "-fx-background-color: #922216ff; -fx-text-fill: white; " +
                     "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;"
         }
         
@@ -65,7 +65,7 @@ class RecipeApp : Application() {
         return Button(text).apply {
             prefWidth = 280.0
             prefHeight = 50.0
-            style = "-fx-background-color: #3498db; -fx-text-fill: white; " +
+            style = "-fx-background-color: #186091ff; -fx-text-fill: white; " +
                     "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;"
             
             setOnMouseEntered { 
@@ -73,7 +73,7 @@ class RecipeApp : Application() {
                         "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;"
             }
             setOnMouseExited { 
-                style = "-fx-background-color: #3498db; -fx-text-fill: white; " +
+                style = "-fx-background-color: #348adbff; -fx-text-fill: white; " +
                         "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;"
             }
         }
