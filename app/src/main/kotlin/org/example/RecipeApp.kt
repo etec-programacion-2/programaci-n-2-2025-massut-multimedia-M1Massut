@@ -10,11 +10,12 @@ import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 import javafx.stage.Stage
 
-
+//clase principal de la aplicación de recetas con interfaz gráfica
 class RecipeApp : Application() {
-    
+    //interacción con la base de datos 
     private val db = DatabaseHelper("data.db")
     
+    //función principal que inicia la aplicación
     override fun start(primaryStage: Stage) {
         // Inicializar base de datos
         db.createTable()
@@ -23,7 +24,7 @@ class RecipeApp : Application() {
         primaryStage.scene = createMainScene(primaryStage)
         primaryStage.show()
     }
-    
+    //creación de la ventana principal con botones estiliados y funciones asociadas
     private fun createMainScene(stage: Stage): Scene {
         // Título
         val titulo = Label("Gestor de Recetas").apply {
@@ -31,7 +32,7 @@ class RecipeApp : Application() {
             style = "-fx-text-fill: #2c3e50;"
         }
         
-        // Botones
+        // creaciones de los botones 
         val btnAgregar = createStyledButton("➕ Agregar Receta")
         val btnVerTodas = createStyledButton("📋 Ver Todas las Recetas")
         val btnBuscar = createStyledButton("🔍 Buscar Receta por ID")
@@ -42,7 +43,7 @@ class RecipeApp : Application() {
                     "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;"
         }
         
-        // Acciones
+        // se les da las funciones a cada botón 
         btnAgregar.setOnAction { mostrarFormularioAgregar(stage) }
         btnVerTodas.setOnAction { mostrarTodasRecetas(stage) }
         btnBuscar.setOnAction { mostrarBuscarReceta(stage) }
@@ -60,7 +61,7 @@ class RecipeApp : Application() {
         
         return Scene(vbox, 450.0, 600.0)
     }
-    
+    //estilo de los botones
     private fun createStyledButton(text: String): Button {
         return Button(text).apply {
             prefWidth = 280.0
@@ -78,8 +79,8 @@ class RecipeApp : Application() {
             }
         }
     }
-    
-    // VENTANA: Agregar Receta
+
+    // ventana para Agregar Receta
     private fun mostrarFormularioAgregar(parentStage: Stage) {
         val dialog = Stage()
         dialog.title = "Agregar Nueva Receta"
@@ -127,7 +128,7 @@ class RecipeApp : Application() {
         dialog.show()
     }
     
-    // VENTANA: Ver Todas las Recetas
+    // ventana para Ver Todas las Recetas
     private fun mostrarTodasRecetas(parentStage: Stage) {
         val dialog = Stage()
         dialog.title = "Todas las Recetas"
@@ -156,8 +157,8 @@ class RecipeApp : Application() {
         dialog.scene = Scene(vbox, 500.0, 400.0)
         dialog.show()
     }
-    
-    // VENTANA: Buscar Receta
+
+    // ventana para Buscar Receta
     private fun mostrarBuscarReceta(parentStage: Stage) {
         val dialog = Stage()
         dialog.title = "Buscar Receta por ID"
@@ -191,8 +192,8 @@ class RecipeApp : Application() {
         dialog.scene = Scene(vbox, 400.0, 350.0)
         dialog.show()
     }
-    
-    // VENTANA: Actualizar Receta
+
+    // ventana para Actualizar Receta
     private fun mostrarActualizarReceta(parentStage: Stage) {
         val dialog = Stage()
         dialog.title = "Actualizar Receta"
@@ -230,8 +231,8 @@ class RecipeApp : Application() {
         dialog.scene = Scene(vbox, 400.0, 400.0)
         dialog.show()
     }
-    
-    // VENTANA: Eliminar Receta
+
+    // ventana para Eliminar Receta
     private fun mostrarEliminarReceta(parentStage: Stage) {
         val dialog = Stage()
         dialog.title = "Eliminar Receta"
@@ -282,7 +283,7 @@ class RecipeApp : Application() {
         alert.showAndWait()
     }
 }
-
+// llamada a la función main para que inicie la aplicación
 fun main() {
     Application.launch(RecipeApp::class.java)
 }

@@ -5,7 +5,7 @@ import java.sql.DriverManager
 import java.sql.PreparedStatement
 
 
-class Newreset (
+class Newreset ( //clase padre para las nuevas recetas
     val id: String,
     val titulo: String,
     val note: String,
@@ -13,7 +13,7 @@ class Newreset (
     val reguion: String,
 )
 {
-    override fun toString(): String {
+    override fun toString(): String { //método para mostrar la información de la receta
         return "Newreset(id='$id', titulo='$titulo', note=$note, duracion=$duracion, reguion=$reguion)"
     }
 }

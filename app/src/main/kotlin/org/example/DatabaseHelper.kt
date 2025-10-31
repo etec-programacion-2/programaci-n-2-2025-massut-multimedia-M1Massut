@@ -1,10 +1,11 @@
 package org.example
-
+//importaciones 
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.Statement
 
+//creación de la clase DatabaseHelper 
 class DatabaseHelper(private val dbPath: String = "data.db") {
     
     private fun connect(): Connection {
