@@ -1,5 +1,5 @@
 package org.example
-
+//Muestra el menú interactivo para gestionar recetas en la pantalla 
 fun menuInteractivo(db: DatabaseHelper) {
     println("\n\n=== Menú Interactivo ===")
     println("1. Agregar receta")
@@ -10,7 +10,7 @@ fun menuInteractivo(db: DatabaseHelper) {
     println("0. Salir")
     
     print("\nSeleccione una opción: ")
-    when (readLine()?.toIntOrNull()) {
+    when (readLine()?.toIntOrNull()) { //lee la opción ingresada por el usuario
         1 -> {
             print("Nombre de la receta: ")
             val nombre = readLine() ?: ""
