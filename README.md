@@ -8,8 +8,7 @@ Paso N°1
 Paso N°2
     cd programaci-n-2-2025-massut-multimedia-M1Massut
 Paso N°3
-    gradle run --no-configuration-chache
-
+    ./gradlew run
 ************************************ Como funcióna la aplicación ***********************************
 
     Esta aplicación funcióna como un librio de recetas contando con 5 botones con distintas funciónes estos 6 son: 1 Agregar Receta, 2 Ver todas las recetas, 3 Buscar receta por ID, 4 Actualizar Receta, 5 Eliminar Receta y por ultimo un boton para salir de la aplicación.
