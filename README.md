@@ -8,7 +8,7 @@
 
 Paso N°1: Clonar el repositorio
     ┌────────────────────────────────────────────────────────────────────────┐
-     https://github.com/etec-programacion-2/programaci-n-2-2025-massut-multimedia-M1Massut.git
+     git clone git@github.com:etec-programacion-2/programaci-n-2-2025-massut-multimedia-M1Massut.git
     └────────────────────────────────────────────────────────────────────────┘
 
 Paso N°2: Navegar al directorio del proyecto
