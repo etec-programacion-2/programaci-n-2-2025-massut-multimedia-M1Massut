@@ -6,19 +6,20 @@ import java.sql.ResultSet
 import java.sql.Statement
 
 //creación de la clase DatabaseHelper 
-class DatabaseHelper(private val dbPath: String = "data.db") {
+class DatabaseHelper(private val dbPath: String = "data.db") : RecetaRepository {
     
     private fun connect(): Connection {
         return DriverManager.getConnection("jdbc:sqlite:$dbPath")
     }
     
     // Crear la tabla de recetas si no existe
-    fun createTable() {
+    override fun createTable() {
         val sql = """
             CREATE TABLE IF NOT EXISTS recetas (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nombre TEXT NOT NULL,
                 descripcion TEXT,
+                tipo TEXT DEFAULT 'salada',
                 fecha_creacion TEXT DEFAULT CURRENT_TIMESTAMP
             );
         """.trimIndent()
@@ -28,17 +29,26 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
                 stmt.execute(sql)
                 println("✓ Tabla 'recetas' creada/verificada correctamente")
             }
+            // Si la tabla ya existía y no tiene la columna 'tipo', intentar agregarla (se ignora si ya existe)
+            try {
+                conn.createStatement().use { stmt ->
+                    stmt.execute("ALTER TABLE recetas ADD COLUMN tipo TEXT DEFAULT 'salada';")
+                }
+            } catch (e: Exception) {
+                // columna ya existe u otro error — ignoramos para compatibilidad
+            }
         }
     }
     
     // Insertar una nueva receta
-    fun insertarReceta(nombre: String, descripcion: String = ""): Int {
-        val sql = "INSERT INTO recetas (nombre, descripcion) VALUES (?, ?)"
+    override fun insertarReceta(nombre: String, descripcion: String, tipo: String): Int {
+        val sql = "INSERT INTO recetas (nombre, descripcion, tipo) VALUES (?, ?, ?)"
         
         connect().use { conn ->
             conn.prepareStatement(sql).use { pstmt ->
                 pstmt.setString(1, nombre)
                 pstmt.setString(2, descripcion)
+                pstmt.setString(3, tipo)
                 pstmt.executeUpdate()
             }
             
@@ -56,9 +66,9 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
     }
     
     // Obtener todas las recetas
-    fun obtenerTodasLasRecetas(): List<Receta> {
+    override fun obtenerTodasLasRecetas(): List<Receta> {
         val recetas = mutableListOf<Receta>()
-        val sql = "SELECT id, nombre, descripcion, fecha_creacion FROM recetas"
+        val sql = "SELECT id, nombre, descripcion, tipo, fecha_creacion FROM recetas"
         
         connect().use { conn ->
             conn.createStatement().use { stmt ->
@@ -69,6 +79,7 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
                             id = rs.getInt("id"),
                             nombre = rs.getString("nombre"),
                             descripcion = rs.getString("descripcion") ?: "",
+                            tipo = rs.getString("tipo") ?: "",
                             fechaCreacion = rs.getString("fecha_creacion")
                         )
                     )
@@ -79,8 +90,8 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
     }
     
     // Buscar receta por ID
-    fun buscarRecetaPorId(id: Int): Receta? {
-        val sql = "SELECT id, nombre, descripcion, fecha_creacion FROM recetas WHERE id = ?"
+    override fun buscarRecetaPorId(id: Int): Receta? {
+        val sql = "SELECT id, nombre, descripcion, tipo, fecha_creacion FROM recetas WHERE id = ?"
         
         connect().use { conn ->
             conn.prepareStatement(sql).use { pstmt ->
@@ -92,6 +103,7 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
                         id = rs.getInt("id"),
                         nombre = rs.getString("nombre"),
                         descripcion = rs.getString("descripcion") ?: "",
+                        tipo = rs.getString("tipo") ?: "",
                         fechaCreacion = rs.getString("fecha_creacion")
                     )
                 }
@@ -101,14 +113,15 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
     }
     
     // Actualizar receta
-    fun actualizarReceta(id: Int, nombre: String, descripcion: String): Boolean {
-        val sql = "UPDATE recetas SET nombre = ?, descripcion = ? WHERE id = ?"
+    override fun actualizarReceta(id: Int, nombre: String, descripcion: String, tipo: String): Boolean {
+        val sql = "UPDATE recetas SET nombre = ?, descripcion = ?, tipo = ? WHERE id = ?"
         
         connect().use { conn ->
             conn.prepareStatement(sql).use { pstmt ->
                 pstmt.setString(1, nombre)
                 pstmt.setString(2, descripcion)
-                pstmt.setInt(3, id)
+                pstmt.setString(3, tipo)
+                pstmt.setInt(4, id)
                 
                 val rowsAffected = pstmt.executeUpdate()
                 if (rowsAffected > 0) {
@@ -121,7 +134,7 @@ class DatabaseHelper(private val dbPath: String = "data.db") {
     }
     
     // Eliminar receta
-    fun eliminarReceta(id: Int): Boolean {
+    override fun eliminarReceta(id: Int): Boolean {
         val sql = "DELETE FROM recetas WHERE id = ?"
         
         connect().use { conn ->
@@ -144,10 +157,11 @@ data class Receta(
     val id: Int,
     val nombre: String,
     val descripcion: String,
+    val tipo: String,
     val fechaCreacion: String
 ) {
     override fun toString(): String {
-        return "Receta(id=$id, nombre='$nombre', descripcion='$descripcion', fecha='$fechaCreacion')"
+        return "Receta(id=$id, nombre='$nombre', tipo='$tipo', descripcion='$descripcion', fecha='$fechaCreacion')"
     }
 }
 
