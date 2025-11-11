@@ -12,8 +12,8 @@ import javafx.stage.Stage
 
 //clase principal de la aplicación de recetas con interfaz gráfica
 class RecipeApp : Application() {
-    //interacción con la base de datos 
-    private val db = DatabaseHelper("data.db")
+    // interacción con la base de datos a través de la abstracción
+    private val db: RecetaRepository = AppContext.repository
     
     //función principal que inicia la aplicación
     override fun start(primaryStage: Stage) {
@@ -296,7 +296,4 @@ class RecipeApp : Application() {
         alert.showAndWait()
     }
 }
-// llamada a la función main para que inicie la aplicación
-fun main() {
-    Application.launch(RecipeApp::class.java)
-}
+// (Launcher moved to App.kt)

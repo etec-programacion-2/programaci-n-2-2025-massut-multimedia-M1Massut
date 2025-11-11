@@ -13,7 +13,7 @@ sealed class Newreset(
         return "Newreset(id='$id', titulo='$titulo', note=$note, duracion=$duracion, reguion=$reguion, tipo=$tipo)"
     }
 }
-
+//creación de clase hija de la clase Newreset rescetas saladas y dulces
 data class RecetaSalada(
     override val id: String,
     override val titulo: String,

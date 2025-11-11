@@ -48,7 +48,8 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.RecipeAppKt"
+    // Updated to the launcher object that contains the @JvmStatic main
+    mainClass = "org.example.AppLauncher"
 }
 
 tasks.named<Test>("test") {
