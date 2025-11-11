@@ -54,8 +54,7 @@ Paso N°3: Ejecutar la aplicación
 
     Java                : 17.0.16
     JavaFX              : 0.0.14
-    Gradle              : 4.4.1
-    SQLite              : (Base de datos embebida)
+    Gradle              : 9.1.0
 
 *** FUNCIONAMIENTO DE LOS ARCHIVOS ***
 
