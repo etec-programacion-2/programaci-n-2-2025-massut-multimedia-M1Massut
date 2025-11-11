@@ -88,6 +88,12 @@ class RecipeApp : Application() {
         val lblNombre = Label("Nombre de la receta:")
         val txtNombre = TextField()
         
+        val lblTipo = Label("Tipo de la receta:")
+        val choiceTipo = ChoiceBox<String>().apply {
+            items.addAll("Salada", "Dulce")
+            value = "Salada"
+        }
+
         val lblDescripcion = Label("Descripción:")
         val txtDescripcion = TextArea().apply {
             prefRowCount = 5
@@ -104,9 +110,10 @@ class RecipeApp : Application() {
         btnGuardar.setOnAction {
             val nombre = txtNombre.text.trim()
             val descripcion = txtDescripcion.text.trim()
-            
+            val tipo = when (choiceTipo.value) { "Dulce" -> "dulce"; else -> "salada" }
+
             if (nombre.isNotEmpty()) {
-                db.insertarReceta(nombre, descripcion)
+                db.insertarReceta(nombre, descripcion, tipo)
                 mostrarAlerta("Éxito", "Receta guardada correctamente", Alert.AlertType.INFORMATION)
                 dialog.close()
             } else {
@@ -120,7 +127,7 @@ class RecipeApp : Application() {
             alignment = Pos.CENTER
         }
         
-        val vbox = VBox(10.0, lblNombre, txtNombre, lblDescripcion, txtDescripcion, hbox).apply {
+        val vbox = VBox(10.0, lblNombre, txtNombre, lblTipo, choiceTipo, lblDescripcion, txtDescripcion, hbox).apply {
             padding = Insets(20.0)
         }
         
@@ -139,8 +146,8 @@ class RecipeApp : Application() {
             if (recetas.isEmpty()) {
                 text = "No hay recetas guardadas"
             } else {
-                text = recetas.joinToString("\n\n") { 
-                    "ID: ${it.id}\nNombre: ${it.nombre}\nDescripción: ${it.descripcion}\nFecha: ${it.fechaCreacion}"
+                text = recetas.joinToString("\n\n") {
+                    "ID: ${it.id}\nNombre: ${it.nombre}\nTipo: ${it.tipo}\nDescripción: ${it.descripcion}\nFecha: ${it.fechaCreacion}"
                 }
             }
         }
@@ -176,7 +183,7 @@ class RecipeApp : Application() {
             if (id != null) {
                 val receta = db.buscarRecetaPorId(id)
                 resultArea.text = if (receta != null) {
-                    "ID: ${receta.id}\nNombre: ${receta.nombre}\nDescripción: ${receta.descripcion}\nFecha: ${receta.fechaCreacion}"
+                    "ID: ${receta.id}\nNombre: ${receta.nombre}\nTipo: ${receta.tipo}\nDescripción: ${receta.descripcion}\nFecha: ${receta.fechaCreacion}"
                 } else {
                     "❌ Receta no encontrada"
                 }
@@ -202,6 +209,11 @@ class RecipeApp : Application() {
         val txtId = TextField()
         val lblNombre = Label("Nuevo nombre:")
         val txtNombre = TextField()
+        val lblTipo = Label("Tipo:")
+        val choiceTipo = ChoiceBox<String>().apply {
+            items.addAll("Salada", "Dulce")
+            value = "Salada"
+        }
         val lblDesc = Label("Nueva descripción:")
         val txtDesc = TextArea().apply { prefRowCount = 4 }
         
@@ -212,7 +224,8 @@ class RecipeApp : Application() {
         btnActualizar.setOnAction {
             val id = txtId.text.toIntOrNull()
             if (id != null && txtNombre.text.isNotEmpty()) {
-                val success = db.actualizarReceta(id, txtNombre.text, txtDesc.text)
+                val tipo = when (choiceTipo.value) { "Dulce" -> "dulce"; else -> "salada" }
+                val success = db.actualizarReceta(id, txtNombre.text, txtDesc.text, tipo)
                 if (success) {
                     mostrarAlerta("Éxito", "Receta actualizada", Alert.AlertType.INFORMATION)
                     dialog.close()
@@ -224,7 +237,7 @@ class RecipeApp : Application() {
             }
         }
         
-        val vbox = VBox(10.0, lblId, txtId, lblNombre, txtNombre, lblDesc, txtDesc, btnActualizar).apply {
+        val vbox = VBox(10.0, lblId, txtId, lblNombre, txtNombre, lblTipo, choiceTipo, lblDesc, txtDesc, btnActualizar).apply {
             padding = Insets(20.0)
         }
         
