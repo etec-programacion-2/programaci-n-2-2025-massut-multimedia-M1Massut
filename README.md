@@ -7,19 +7,19 @@
 *** COMANDOS PARA EJECUTAR LA APLICACIÓN ***
 
 Paso N°1: Clonar el repositorio
-    ┌────────────────────────────────────────────────────────────────────────┐
+    ┌───────────────────────────────────────────────────────────────────────────────────────────────┐
      git clone git@github.com:etec-programacion-2/programaci-n-2-2025-massut-multimedia-M1Massut.git
-    └────────────────────────────────────────────────────────────────────────┘
+    └───────────────────────────────────────────────────────────────────────────────────────────────┘
 
 Paso N°2: Navegar al directorio del proyecto
-    ┌────────────────────────────────────────────────────────────────────────┐
+    ┌──────────────────────────────────────────────────┐
      cd programaci-n-2-2025-massut-multimedia-M1Massut                     
-    └────────────────────────────────────────────────────────────────────────┘
+    └──────────────────────────────────────────────────┘
 
 Paso N°3: Ejecutar la aplicación
-    ┌────────────────────────────────────────────────────────────────────────┐
-     ./gradlew run                                                        
-    └────────────────────────────────────────────────────────────────────────┘
+    ┌──────────────┐
+     ./gradlew run                                                       
+    └──────────────┘
 
 *** FUNCIONAMIENTO DE LA APLICACIÓN ***
 
@@ -58,26 +58,42 @@ Paso N°3: Ejecutar la aplicación
 
 *** FUNCIONAMIENTO DE LOS ARCHIVOS ***
 
-    App.java
-        └─> Archivo principal donde también se encuentra la gestión de la
-            base de datos SQLite. Punto de entrada de la aplicación.
+    App.kt
+        └─> Clase principal ConsoleApp que ejecuta la aplicación en modo
+            consola. Inicializa el repositorio y permite demostración de
+            funcionalidades básicas sin interfaz gráfica.
 
-    DatabaseHelper.java
-        └─> Configuración, creación y funciones que se pueden realizar en
-            la base de datos. Maneja todas las operaciones CRUD (Crear,
-            Leer, Actualizar, Eliminar).
+    AppLauncher (dentro de App.kt)
+         └─> Objeto singleton que contiene el método main() de la aplicación.
+             Punto de entrada único que lanza la interfaz gráfica JavaFX
+             mediante Application.launch().
 
-    MenuInteractivo.java
-        └─> Gestión del menú interactivo. Controla la navegación y la
-            interacción del usuario con las diferentes opciones.
+    AppContext.kt
+        └─> Contenedor de inyección de dependencias simple. Proporciona
+            acceso global a la implementación del repositorio (DatabaseHelper)
+            y permite sustituirla fácilmente para pruebas unitarias.
+    
+    RecetaRepository.kt
+        └─> Interfaz que define el contrato para operaciones CRUD sobre
+            recetas. Abstrae la lógica de persistencia permitiendo
+            múltiples implementaciones (SQLite, memoria, API REST, etc.).
 
-    Newrecet.java
-        └─> Clase padre para la creación de las nuevas recetas. Define
-            la estructura base que todas las recetas deben seguir.
 
-    RecipeApp.java
-        └─> Interfaz gráfica de la aplicación. Implementa la UI usando
-            JavaFX para una experiencia visual moderna.
+     DatabaseHelper.kt
+        └─> Implementación concreta de RecetaRepository usando SQLite.
+            Responsabilidades principales
+
+    MenuInteractivo.kt
+        └─> Gestión del menú interactivo en modo consola. Proporciona una
+            interfaz de línea de comandos (CLI) alternativa para usuarios
+            que prefieren trabajar sin entorno gráfico.
+
+     Newrescet.kt
+        └─> Define el modelo de dominio para recetas mediante clases
+
+    RecipeApp.kt
+        └─> Interfaz gráfica completa de la aplicación usando JavaFX.
+            Implementa todas las ventanas y diálogos para gestionar
 
 *** ESTRUCTURA DEL PROYECTO ***
 
